@@ -3,7 +3,7 @@ name: tripo-to-blender-workflow
 description: Generate separate Hair, Head, and Body assets with Image Gen and Tripo Studio P2.0, then review, repair, and manually assemble them in Blender with seam and skin-tone checks.
 ---
 
-# Tripo to Blender workflow
+# Character Foundry
 
 Deliver one reviewed Blender assembly with separate Hair, Head, and Body objects, their source hashes, and an acceptance record. Use an image generation tool, a signed-in Tripo Studio web session, Blender with GLB support, and Python 3.10 or later for download intake. Stop after step 4 when the user only needs independent parts.
 
