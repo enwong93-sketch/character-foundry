@@ -1,11 +1,11 @@
 ---
 name: tripo-to-blender-workflow
-description: Prepare standalone character Hair, Head, and Body assets with structured Image Gen prompts, Tripo Studio P2.0, and Blender intake, visual review, and automatic face orientation repair.
+description: Generate separate Hair, Head, and Body assets with Image Gen and Tripo Studio P2.0, then review, repair, and manually assemble them in Blender with seam and skin-tone checks.
 ---
 
 # Tripo to Blender workflow
 
-Deliver separately reviewed Hair, Head, and Body assets with source hashes and a verdict for each. Use an image generation tool, a signed-in Tripo Studio web session, Blender with GLB support, and Python 3.10 or later for download intake.
+Deliver one reviewed Blender assembly with separate Hair, Head, and Body objects, their source hashes, and an acceptance record. Use an image generation tool, a signed-in Tripo Studio web session, Blender with GLB support, and Python 3.10 or later for download intake. Stop after step 4 when the user only needs independent parts.
 
 ## 1. Generate references
 
@@ -13,7 +13,7 @@ Use [the image pipeline manifest](references/image-pipeline.json). Start with th
 
 ## 2. Generate and review in Tripo
 
-Follow the [P2.0 web procedure](references/tripo-p20.md). Generate multiviews from each front image and check them before submitting Smart Mesh P2.0 with Quads and 25,000 target faces. Record the pending submission and confirm the job before retrying. Review the returned mesh in multiple views and confirm the export format and actual topology.
+Follow the [P2.0 web procedure](references/tripo-p20.md). Run three independent jobs, one each for Hair, Head, and Body. Generate multiviews from each front image and check them before submitting Smart Mesh P2.0 with Quads and 25,000 target faces. Record the pending submission and confirm the job before retrying. Review the returned mesh in multiple views and confirm the export format and actual topology.
 
 ## 3. Verify downloads and inspect in Blender
 
@@ -38,3 +38,7 @@ blender --background --factory-startup --python-exit-code 1 --python scripts/tri
 Read the `NORMAL_REPAIR` JSON line. A `repaired` result supplies a new candidate path and per-mesh face counts. `unchanged` uses the original asset. Omit `--output` for an audit. The detector uses visibility rays and can miss hidden faces or ambiguous open surfaces. Refresh Blender inspection after repair, compare the original material and Face Orientation at the same angles, and retain the candidate only if the defect is resolved. Keep rigged meshes and Shape Keys out of this tool.
 
 For other defects, isolate the affected geometry before editing. Fix a small confirmed gap locally while retaining the intended silhouette and UVs. For fused or intersecting surfaces, inspect both sides before choosing the smallest repair. For a stain that survives neutral lighting and consistent normals, inspect the base-color image and UVs. Return the part for regeneration if a repair would change the design or cannot pass visual review.
+
+## 5. Manually assemble and review in Blender
+
+Follow [manual placement and 360-degree review](references/manual-assembly.md). The coding agent places the parts using Blender transforms, keeps the body fixed, and reviews the head/neck join before adding hair. Follow [skin-tone matching](references/skin-tone-match.md) if the head and body differ in base color. Review the assembled result in original materials and save the inspected pose with an interface verdict for each join. Keep the parts separate in the working file.
