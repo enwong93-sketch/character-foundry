@@ -1,6 +1,6 @@
 # Character Foundry
 
-An MIT-licensed Agent Skill for building 3D characters from reference images.
+Build T-pose 3D characters with a coding agent.
 
 1. Generate a standardized Master and three reference images with structured Image Gen prompts.
 2. Generate and inspect each mesh in Tripo Studio using Smart Mesh P2.0.
